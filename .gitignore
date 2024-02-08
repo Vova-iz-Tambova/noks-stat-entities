@@ -1,2 +1,7 @@
 # dependencies
 /node_modules
+/api 2
+/entities 2
+
+# Optional REPL history
+.DS_Store
