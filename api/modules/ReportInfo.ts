@@ -6,14 +6,12 @@ import { ReportInfo } from '../../entities/report-info/types';
 export class ApiReportInfo extends BaseApi {
 
   private static instance: ApiReportInfo;
-  private readonly BASE_URL = "http://beta-noks.local";
-  private readonly API_BASE_URL = "/api/stat/info/type";
-
+  private localBaseUrl ="api/stat/info/type";
   private constructor() {
     super();
   }
 
-  public static getInstance(): ApiReportInfo {
+  public static getInstance() {
     if (!ApiReportInfo.instance) {
       ApiReportInfo.instance = new ApiReportInfo();
     }
@@ -23,17 +21,17 @@ export class ApiReportInfo extends BaseApi {
   public async GET() {
     const result: Array<ReportInfo> = await this.get(
         {
-            url: this.BASE_URL + this.API_BASE_URL,
+          url: `${this.localBaseUrl}`,
         },
         z.array(SReportInfo)
     );
     return result;
 }
 
-  public async GET_BYTYPE(type: number) {
+  public async GET_BY_TYPE(type: number) {
     const result: ReportInfo = await this.get(
       {
-        url: `${this.BASE_URL}${this.API_BASE_URL}/${type}`,
+        url: `${this.localBaseUrl}/${type}`,
       },
       SReportInfo
     );

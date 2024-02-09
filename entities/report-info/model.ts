@@ -1,13 +1,13 @@
 import { ReportInfo } from './types';
 import { ApiReportInfo } from '../../api/modules/ReportInfo';
 
-export class InfoReportModel {
+export class ReportInfoModel {
 
-  static async getInfoReportAll(): Promise<Array<ReportInfo>> {
+  static async getAll(): Promise<Array<ReportInfo>> {
     return ApiReportInfo.getInstance().GET();
 }
 
-  static async getInfoReportByType(type: number): Promise<ReportInfo> {
-    return ApiReportInfo.getInstance().GET_BYTYPE(type);
+  static async getByType(type: number): Promise<ReportInfo> {
+    return ApiReportInfo.getInstance().GET_BY_TYPE(type);
   }
 }
