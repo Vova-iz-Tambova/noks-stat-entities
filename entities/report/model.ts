@@ -3,11 +3,11 @@ import { ApiReport } from '../../api/modules/Report';
 
 export class ReportModel {
 
-  static async getReportAll(stat_id: number): Promise<Array<Report>> {
+  static async getAll(stat_id: number): Promise<Array<Report>> {
     return ApiReport.getInstance().GET(stat_id);
-}
+  }
 
-  static async getReportById(report_id: number, stat_id: number): Promise<Report> {
-    return ApiReport.getInstance().GET_BYID(report_id, stat_id);
+  static async get(stat_id: number, report_id: number): Promise<Report> {
+    return ApiReport.getInstance().GET_BY_ID(stat_id, report_id);
   }
 }
