@@ -7,7 +7,7 @@ export enum REPORT_TYPE {
   CUSTOM = 10
 }
 
-export const SInfoReport = z.object({
+export const SReportInfo = z.object({
   type: z.nativeEnum(REPORT_TYPE),
   name: z.string(),
   show_fields: z.array(z.string()),
