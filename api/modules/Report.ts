@@ -34,4 +34,14 @@ export class ApiReport extends BaseApi {
     );
     return result;
   }
+
+  public async DEL(stat_id: number, report_id: number) {
+    const result: Report = await this.delete(
+      {
+        url: `${this.localBaseUrl}/${stat_id}/report/${report_id}`,
+      },
+      z.number()
+    );
+    return result;
+  }
 }

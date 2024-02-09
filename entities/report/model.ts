@@ -10,4 +10,8 @@ export class ReportModel {
   static async get(stat_id: number, report_id: number): Promise<Report> {
     return ApiReport.getInstance().GET_BY_ID(stat_id, report_id);
   }
+
+  static async delete(stat_id: number, report_id: number): Promise<boolean> {
+    return ApiReport.getInstance().DEL(stat_id, report_id);
+  }
 }
