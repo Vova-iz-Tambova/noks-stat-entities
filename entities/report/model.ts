@@ -12,6 +12,14 @@ export class ReportModel {
   }
 
   static async delete(stat_id: number, report_id: number): Promise<boolean> {
-    return ApiReport.getInstance().DEL(stat_id, report_id);
+    return ApiReport.getInstance().DELETE(stat_id, report_id);
+  }
+
+  static async put(stat_id: number, report_id: number): Promise<boolean> {
+    return ApiReport.getInstance().PUT(stat_id, report_id);
+  }
+
+  static async post(stat_id: number): Promise<number> {
+    return ApiReport.getInstance().POST(stat_id);
   }
 }

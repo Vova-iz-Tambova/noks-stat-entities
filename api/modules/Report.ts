@@ -35,10 +35,30 @@ export class ApiReport extends BaseApi {
     return result;
   }
 
-  public async DEL(stat_id: number, report_id: number) {
-    const result: Report = await this.delete(
+  public async DELETE(stat_id: number, report_id: number): Promise<boolean> {
+    const result: boolean = await this.delete(
       {
         url: `${this.localBaseUrl}/${stat_id}/report/${report_id}`,
+      },
+      z.boolean()
+    );
+    return result;
+  }
+
+  public async PUT(stat_id: number, report_id: number): Promise<boolean> {
+    const result: boolean = await this.put(
+      {
+        url: `${this.localBaseUrl}/${stat_id}/report/${report_id}`,
+      },
+      z.boolean()
+    );
+    return result;
+  }
+
+  public async POST(stat_id: number): Promise<number> {
+    const result: number = await this.post(
+      {
+        url: `${this.localBaseUrl}/${stat_id}/report`,
       },
       z.number()
     );
