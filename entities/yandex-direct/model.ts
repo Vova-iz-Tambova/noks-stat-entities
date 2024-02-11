@@ -9,34 +9,43 @@ import {
 import { ApiYandexDirect } from '../../api/modules/YandexDirect';
 
 export class YandexDirectModel {
+  private _stat_id: number;
+  private _integration_id: number | null;
+  private _data: object | null;
+
+  constructor(stat_id, integration_id?, data?) {
+    this._stat_id = stat_id;
+    this._integration_id = integration_id;
+    this._data = data;
+  }
 
   // SETTING CHANNEL YANDEX DIRECT
-  static async putSettingChannel(stat_id: number, integration_id: number, data: putYandexDirectSetting): Promise<boolean> {
-    return ApiYandexDirect.getInstance().PUT_SETTING(stat_id, integration_id, data);
+  static async putSettingChannel(_stat_id, _integration_id, _data: putYandexDirectSetting): Promise<boolean> {
+    return ApiYandexDirect.getInstance(_stat_id, _integration_id).PUT_SETTING(_data);
   }
 
   // INTEGRATION CHANNEL YANDEX.DIRECT
-  static async postIntegrationChannel(stat_id: number, data: postYandexDirectIntegration): Promise<number> {
-    return ApiYandexDirect.getInstance().POST_INTEGRATION(stat_id, data);
+  static async postIntegrationChannel(_stat_id, _data: postYandexDirectIntegration): Promise<number> {
+    return ApiYandexDirect.getInstance(_stat_id).POST_INTEGRATION(_data);
   }
 
   // SETTING CAMPAIGN
-  static async putSettingCampaign(stat_id: number, integration_id: number, data: putYandexDirectCompaign): Promise<boolean> {
-    return ApiYandexDirect.getInstance().PUT_CAMPAIGN(stat_id, integration_id, data);
+  static async putSettingCampaign(_stat_id, _integration_id, _data: putYandexDirectCompaign): Promise<boolean> {
+    return ApiYandexDirect.getInstance(_stat_id, _integration_id).PUT_CAMPAIGN(_data);
   }
 
   // SETTING CHANNEL YANDEX DIRECT
-  static async getSettingChannel(stat_id: number, integration_id: number): Promise<YandexDirectSetting> {
-    return ApiYandexDirect.getInstance().GET_SETTING(stat_id, integration_id);
+  static async getSettingChannel(_stat_id, _integration_id): Promise<YandexDirectSetting> {
+    return ApiYandexDirect.getInstance(_stat_id, _integration_id).GET_SETTING();
   }
 
   // AUTH CHANNEL YANDEX DIRECT
-  static async postAuthChannel(stat_id: string, integration_id: string, data: postYandexDirectAuth): Promise<boolean> {
-    return ApiYandexDirect.getInstance().POST_AUTH(stat_id, integration_id, data);
+  static async postAuthChannel(_stat_id, _integration_id, data: postYandexDirectAuth): Promise<boolean> {
+    return ApiYandexDirect.getInstance(_stat_id, _integration_id).POST_AUTH(data);
   }
 
   // EXIST COMPLEX CHANNEL YANDEX.DIRECT
-  static async getExistChannel(stat_id: number, integration_id: number): Promise<YandexDirectAuth> {
-    return ApiYandexDirect.getInstance().GET_EXIST(stat_id, integration_id);
+  static async getExistChannel(_stat_id, _integration_id): Promise<YandexDirectAuth> {
+    return ApiYandexDirect.getInstance(_stat_id, _integration_id).GET_EXIST();
   }
 }

@@ -13,20 +13,26 @@ import {
 
 export class ApiYandexDirect extends BaseApi {
   private static instance: ApiYandexDirect;
-  private localBaseUrl = `api/stat`;
-  private constructor() {
+  private _stat_id: number;
+  private _integration_id: number | null;
+  private _localBaseUrl: string;
+
+  private constructor(stat_id, integration_id?, data?) {
     super();
+    this._stat_id = stat_id;
+    this._integration_id = integration_id;
+    this._localBaseUrl = `api/stat/${stat_id}/integration`;
   }
 
-  public static getInstance() {
-    ApiYandexDirect.instance = new ApiYandexDirect();
+  public static getInstance(stat_id: number, integration_id?: number) {
+    ApiYandexDirect.instance = new ApiYandexDirect(stat_id, integration_id);
     return ApiYandexDirect.instance;
   }
 
-  public async PUT_SETTING(stat_id: number, integration_id: number, data: putYandexDirectSetting): Promise<boolean> {
+  public async PUT_SETTING(data: putYandexDirectSetting): Promise<boolean> {
     const result: boolean = await this.put(
       {
-        url: `${this.localBaseUrl}/${stat_id}/integration/${integration_id}/channel/yandex_direct/setting`,
+        url: `${this._localBaseUrl}/${this._integration_id}/channel/yandex_direct/setting`,
         data: data,
       },
       z.boolean()
@@ -34,10 +40,10 @@ export class ApiYandexDirect extends BaseApi {
     return result;
   }
 
-  public async POST_INTEGRATION(stat_id: number, data: postYandexDirectIntegration): Promise<number> {
+  public async POST_INTEGRATION(data: postYandexDirectIntegration): Promise<number> {
     const result: number = await this.post(
       {
-        url: `${this.localBaseUrl}/${stat_id}/integration/channel/yandex_direct`,
+        url: `${this._localBaseUrl}/channel/yandex_direct`,
         data: data,
       },
       z.number()
@@ -45,10 +51,10 @@ export class ApiYandexDirect extends BaseApi {
     return result;
   }
 
-  public async PUT_CAMPAIGN(stat_id: number, integration_id: number, data: putYandexDirectCompaign): Promise<boolean> {
+  public async PUT_CAMPAIGN(data: putYandexDirectCompaign): Promise<boolean> {
     const result: boolean = await this.put(
       {
-        url: `${this.localBaseUrl}/${stat_id}/integration/${integration_id}/channel/yandex_direct/setting`,
+        url: `${this._localBaseUrl}/${this._integration_id}/channel/yandex_direct/setting`,
         data: data,
       },
       z.boolean()
@@ -56,20 +62,20 @@ export class ApiYandexDirect extends BaseApi {
     return result;
   }
 
-  public async GET_SETTING(stat_id: number, integration_id: number) {
+  public async GET_SETTING() {
     const result: YandexDirectSetting = await this.get(
       {
-        url: `${this.localBaseUrl}/${stat_id}/integration/${integration_id}/channel/yandex_direct/setting`,
+        url: `${this._localBaseUrl}/${this._integration_id}/channel/yandex_direct/setting`,
       },
       SYandexDirectSetting
     );
     return result;
   }
 
-  public async POST_AUTH(stat_id: string, integration_id: string, data: postYandexDirectAuth): Promise<boolean> {
+  public async POST_AUTH(data: postYandexDirectAuth): Promise<boolean> {
     const result: boolean = await this.post(
       {
-        url: `${this.localBaseUrl}/${stat_id}/integration/${integration_id}/channel/yandex_direct/auth`,
+        url: `${this._localBaseUrl}/${this._integration_id}/channel/yandex_direct/auth`,
         data: data,
       },
       z.boolean()
@@ -77,10 +83,10 @@ export class ApiYandexDirect extends BaseApi {
     return result;
   }
 
-  public async GET_EXIST(stat_id: number, integration_id: number) {
+  public async GET_EXIST() {
     const result: YandexDirectAuth = await this.get(
       {
-        url: `${this.localBaseUrl}/${stat_id}/integration/${integration_id}/channel/yandex_direct/exist_complex`,
+        url: `${this._localBaseUrl}/${this._integration_id}/channel/yandex_direct/exist_complex`,
       },
       SYandexDirectAuth
     );
