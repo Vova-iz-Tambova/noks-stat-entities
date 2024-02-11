@@ -15,22 +15,12 @@ export class ApiReport extends BaseApi {
     return ApiReport.instance;
   }
 
-  public async GET(stat_id: number) {
-    const result: Array<Report> = await this.get(
+  public async POST(stat_id: number): Promise<number> {
+    const result: number = await this.post(
       {
         url: `${this.localBaseUrl}/${stat_id}/report`,
       },
-      z.array(SReport)
-    );
-    return result;
-  }
-
-  public async GET_BY_ID(stat_id: number, report_id: number) {
-    const result: Report = await this.get(
-      {
-        url: `${this.localBaseUrl}/${stat_id}/report/${report_id}`,
-      },
-      SReport
+      z.number()
     );
     return result;
   }
@@ -55,12 +45,22 @@ export class ApiReport extends BaseApi {
     return result;
   }
 
-  public async POST(stat_id: number): Promise<number> {
-    const result: number = await this.post(
+  public async GET_BY_ID(stat_id: number, report_id: number) {
+    const result: Report = await this.get(
+      {
+        url: `${this.localBaseUrl}/${stat_id}/report/${report_id}`,
+      },
+      SReport
+    );
+    return result;
+  }
+
+  public async GET_ALL(stat_id: number) {
+    const result: Array<Report> = await this.get(
       {
         url: `${this.localBaseUrl}/${stat_id}/report`,
       },
-      z.number()
+      z.array(SReport)
     );
     return result;
   }

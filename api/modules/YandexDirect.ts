@@ -1,8 +1,7 @@
 import { BaseApi } from "../../api 2/modules/BaseApi";
 import { z } from 'zod';
-import { SYandexDirectAuth, SYandexDirectEntity, SYandexDirectSetting } from '../../entities/yandex-direct/scheme';
-import { YandexDirectAuth, YandexDirectEntity, YandexDirectSetting } from '../../entities/yandex-direct/types';
-
+import { SYandexDirectAuth, SYandexDirectSetting } from '../../entities/yandex-direct/scheme';
+import { YandexDirectAuth, YandexDirectSetting } from '../../entities/yandex-direct/types';
 
 export class ApiYandexDirect extends BaseApi {
   private static instance: ApiYandexDirect;
@@ -16,37 +15,28 @@ export class ApiYandexDirect extends BaseApi {
     return ApiYandexDirect.instance;
   }
 
-  public async GET_ENTITY(stat_id: string, integration_id: string) {
-    const result: Array<YandexDirectEntity> = await this.get(
+  public async PUT_CAMPAIGN(stat_id: number, integration_id: number): Promise<boolean> {
+    const result: boolean = await this.put(
       {
-        url: `${this.localBaseUrl}/${stat_id}/integration/${integration_id}/channel/yandex_direct/entity/campaign`,
-      },
-      z.array(SYandexDirectEntity)
-    );
-    return result;
-  }
-
-  public async POST_AUTH(stat_id: string, integration_id: string): Promise<boolean> {
-    const result: boolean = await this.post(
-      {
-        url: `${this.localBaseUrl}/${stat_id}/integration/${integration_id}/channel/yandex_direct/auth`,
+        url: `${this.localBaseUrl}/${stat_id}/integration/${integration_id}/channel/yandex_direct/setting`,
       },
       z.boolean()
     );
     return result;
   }
 
-  public async GET_AUTH(stat_id: number, integration_id: number) {
-    const result: YandexDirectAuth = await this.get(
+  public async POST_INTEGRATION(stat_id: number): Promise<number> {
+    const result: number = await this.post(
       {
-        url: `${this.localBaseUrl}/${stat_id}/integration/${integration_id}/channel/yandex_direct/exist_complex`,
+        url: `${this.localBaseUrl}/${stat_id}/integration/channel/yandex_direct`,
+
       },
-      SYandexDirectAuth
+      z.number()
     );
     return result;
   }
 
-  public async PUT_CAMPAIGN(stat_id: number, integration_id: number): Promise<boolean> {
+  public async PUT_SETTING(stat_id: number, integration_id: number): Promise<boolean> {
     const result: boolean = await this.put(
       {
         url: `${this.localBaseUrl}/${stat_id}/integration/${integration_id}/channel/yandex_direct/setting`,
@@ -66,23 +56,22 @@ export class ApiYandexDirect extends BaseApi {
     return result;
   }
 
-  public async PUT_SETTING(stat_id: number, integration_id: number): Promise<boolean> {
-    const result: boolean = await this.put(
+  public async POST_AUTH(stat_id: string, integration_id: string): Promise<boolean> {
+    const result: boolean = await this.post(
       {
-        url: `${this.localBaseUrl}/${stat_id}/integration/${integration_id}/channel/yandex_direct/setting`,
+        url: `${this.localBaseUrl}/${stat_id}/integration/${integration_id}/channel/yandex_direct/auth`,
       },
       z.boolean()
     );
     return result;
   }
 
-  public async POST_INTEGRATION(stat_id: number): Promise<number> {
-    const result: number = await this.post(
+  public async GET_EXIST(stat_id: number, integration_id: number) {
+    const result: YandexDirectAuth = await this.get(
       {
-        url: `${this.localBaseUrl}/${stat_id}/integration/channel/yandex_direct`,
-
+        url: `${this.localBaseUrl}/${stat_id}/integration/${integration_id}/channel/yandex_direct/exist_complex`,
       },
-      z.number()
+      SYandexDirectAuth
     );
     return result;
   }

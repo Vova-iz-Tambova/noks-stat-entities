@@ -15,7 +15,7 @@ export class ApiReportInfo extends BaseApi {
     return ApiReportInfo.instance;
   }
 
-  public async GET() {
+  public async GET_ALL() {
     const result: Array<ReportInfo> = await this.get(
       {
         url: `${this.localBaseUrl}`,

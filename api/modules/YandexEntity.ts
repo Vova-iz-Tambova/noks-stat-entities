@@ -1,0 +1,27 @@
+import { BaseApi } from "../../api 2/modules/BaseApi";
+import { z } from 'zod';
+import { SYandexDirectEntity } from '../../entities/yandex-entity/scheme';
+import { YandexDirectEntity } from '../../entities/yandex-entity/types';
+
+export class ApiYandexEntity extends BaseApi {
+  private static instance: ApiYandexEntity;
+  private localBaseUrl = `api/stat`;
+  private constructor() {
+    super();
+  }
+
+  public static getInstance() {
+    ApiYandexEntity.instance = new ApiYandexEntity();
+    return ApiYandexEntity.instance;
+  }
+
+  public async GET_ENTITY(stat_id: string, integration_id: string) {
+    const result: Array<YandexDirectEntity> = await this.get(
+      {
+        url: `${this.localBaseUrl}/${stat_id}/integration/${integration_id}/channel/yandex_direct/entity/campaign`,
+      },
+      z.array(SYandexDirectEntity)
+    );
+    return result;
+  }
+}

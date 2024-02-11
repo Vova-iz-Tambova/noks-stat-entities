@@ -5,13 +5,6 @@ export const SYandexDirectAuth = z.object({
   ready_to_configure: z.boolean()
 });
 
-export const SYandexDirectEntity = z.object({
-  campaign_id: z.number(),
-  name: z.string(),
-  status: z.number(), // 0 or 1
-  created_at: z.string().datetime(),
-});
-
 export const SYandexDirectSetting = z.object({
   integration_id: z.string(),
   add_new_campaign: z.number(), // 0 or 1

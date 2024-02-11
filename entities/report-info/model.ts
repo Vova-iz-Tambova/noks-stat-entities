@@ -5,10 +5,10 @@ import { REPORT_TYPE } from './scheme';
 export class ReportInfoModel {
 
   static async getAll(): Promise<Array<ReportInfo>> {
-    return ApiReportInfo.getInstance().GET();
+    return ApiReportInfo.getInstance().GET_ALL();
   }
 
-  static async get(type: REPORT_TYPE): Promise<ReportInfo> {
+  static async getByType(type: REPORT_TYPE): Promise<ReportInfo> {
     return ApiReportInfo.getInstance().GET_BY_TYPE(type);
   }
 }
