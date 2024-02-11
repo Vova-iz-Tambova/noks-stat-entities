@@ -15,7 +15,7 @@ export class ApiYandexEntity extends BaseApi {
     return ApiYandexEntity.instance;
   }
 
-  public async GET_ENTITY(stat_id: string, integration_id: string) {
+  public async GET_ALL_ENTITYS(stat_id: number, integration_id: number) {
     const result: Array<YandexDirectEntity> = await this.get(
       {
         url: `${this.localBaseUrl}/${stat_id}/integration/${integration_id}/channel/yandex_direct/entity/campaign`,

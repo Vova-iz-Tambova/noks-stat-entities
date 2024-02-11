@@ -1,4 +1,4 @@
-import { REPORT_TYPE } from './entities/report/scheme';
+import { REPORT_TYPE } from './entities/report-info/scheme';
 
 console.log(REPORT_TYPE.CHANNEL);
 console.log(REPORT_TYPE.DOMAIN);

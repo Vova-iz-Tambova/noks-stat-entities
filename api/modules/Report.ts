@@ -1,7 +1,7 @@
 import { BaseApi } from "../../api 2/modules/BaseApi";
 import { z } from 'zod';
 import { SReport } from '../../entities/report/scheme';
-import { Report } from '../../entities/report/types';
+import { postReport, putReport, Report } from '../../entities/report/types';
 
 export class ApiReport extends BaseApi {
   private static instance: ApiReport;
@@ -15,10 +15,11 @@ export class ApiReport extends BaseApi {
     return ApiReport.instance;
   }
 
-  public async POST(stat_id: number): Promise<number> {
+  public async POST(stat_id: number, data: postReport): Promise<number> {
     const result: number = await this.post(
       {
         url: `${this.localBaseUrl}/${stat_id}/report`,
+        data: data,
       },
       z.number()
     );
@@ -35,10 +36,11 @@ export class ApiReport extends BaseApi {
     return result;
   }
 
-  public async PUT(stat_id: number, report_id: number): Promise<boolean> {
+  public async PUT(stat_id: number, report_id: number, data: putReport): Promise<boolean> {
     const result: boolean = await this.put(
       {
         url: `${this.localBaseUrl}/${stat_id}/report/${report_id}`,
+        data: data,
       },
       z.boolean()
     );

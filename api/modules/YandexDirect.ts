@@ -1,7 +1,15 @@
 import { BaseApi } from "../../api 2/modules/BaseApi";
 import { z } from 'zod';
 import { SYandexDirectAuth, SYandexDirectSetting } from '../../entities/yandex-direct/scheme';
-import { YandexDirectAuth, YandexDirectSetting } from '../../entities/yandex-direct/types';
+import {
+  YandexDirectAuth,
+  YandexDirectSetting,
+  putYandexDirectSetting,
+  postYandexDirectIntegration,
+  putYandexDirectCompaign,
+  postYandexDirectAuth
+} from '../../entities/yandex-direct/types';
+
 
 export class ApiYandexDirect extends BaseApi {
   private static instance: ApiYandexDirect;
@@ -15,31 +23,33 @@ export class ApiYandexDirect extends BaseApi {
     return ApiYandexDirect.instance;
   }
 
-  public async PUT_CAMPAIGN(stat_id: number, integration_id: number): Promise<boolean> {
+  public async PUT_SETTING(stat_id: number, integration_id: number, data: putYandexDirectSetting): Promise<boolean> {
     const result: boolean = await this.put(
       {
         url: `${this.localBaseUrl}/${stat_id}/integration/${integration_id}/channel/yandex_direct/setting`,
+        data: data,
       },
       z.boolean()
     );
     return result;
   }
 
-  public async POST_INTEGRATION(stat_id: number): Promise<number> {
+  public async POST_INTEGRATION(stat_id: number, data: postYandexDirectIntegration): Promise<number> {
     const result: number = await this.post(
       {
         url: `${this.localBaseUrl}/${stat_id}/integration/channel/yandex_direct`,
-
+        data: data,
       },
       z.number()
     );
     return result;
   }
 
-  public async PUT_SETTING(stat_id: number, integration_id: number): Promise<boolean> {
+  public async PUT_CAMPAIGN(stat_id: number, integration_id: number, data: putYandexDirectCompaign): Promise<boolean> {
     const result: boolean = await this.put(
       {
         url: `${this.localBaseUrl}/${stat_id}/integration/${integration_id}/channel/yandex_direct/setting`,
+        data: data,
       },
       z.boolean()
     );
@@ -56,10 +66,11 @@ export class ApiYandexDirect extends BaseApi {
     return result;
   }
 
-  public async POST_AUTH(stat_id: string, integration_id: string): Promise<boolean> {
+  public async POST_AUTH(stat_id: string, integration_id: string, data: postYandexDirectAuth): Promise<boolean> {
     const result: boolean = await this.post(
       {
         url: `${this.localBaseUrl}/${stat_id}/integration/${integration_id}/channel/yandex_direct/auth`,
+        data: data,
       },
       z.boolean()
     );
